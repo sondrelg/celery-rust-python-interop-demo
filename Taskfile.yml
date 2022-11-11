@@ -1,0 +1,16 @@
+version: '3'
+
+tasks:
+  worker:
+    cmds:
+      - watchfiles "celery -A celery_demo worker -l INFO -Q python-queue" celery_demo/
+    silent: true
+
+  rust-worker:
+    cmds:
+      - watchfiles "cargo run consume" celery_app.rs
+    silent: true
+
+  run:
+    cmds:
+      - python -c "from celery_demo.celery import say_hello; say_hello.delay()"

@@ -1,0 +1,16 @@
+version: '3.8'
+
+volumes:
+  rabbitmq_volume_data:
+  rabbitmq_volume_log:
+
+services:
+  rabbitmq:
+    container_name: "cloud-rabbitmq"
+    image: rabbitmq:3-management-alpine
+    ports:
+      - '127.0.0.1:5672:5672'
+      - '127.0.0.1:15672:15672'
+    volumes:
+      - rabbitmq_volume_data:/var/lib/rabbitmq/
+      - rabbitmq_volume_log:/var/log/rabbitmq
