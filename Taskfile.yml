@@ -3,7 +3,7 @@ version: '3'
 tasks:
   worker:
     cmds:
-      - watchfiles "celery -A celery_demo worker -l INFO -Q python-queue" celery_demo/
+      - watchfiles "celery -A celery_demo worker -l WARNING -Q python-queue" celery_demo/
     silent: true
 
   rust-worker:
@@ -13,4 +13,4 @@ tasks:
 
   run:
     cmds:
-      - python -c "from celery_demo.celery import say_hello; say_hello.delay()"
+      - python -c "from celery_demo.celery import queue_rust_task; queue_rust_task.delay()"

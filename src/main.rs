@@ -7,7 +7,7 @@ use env_logger::Env;
 
 // This generates the task struct and impl with the name set to the function name "add"
 #[celery::task]
-fn rust_say_hello() -> TaskResult<()> {
+fn say_hello() -> TaskResult<()> {
     println!("Hello from rust");
     Ok(())
 }
@@ -18,7 +18,7 @@ async fn main() -> Result<()> {
 
     let app = celery::app!(
         broker = AMQPBroker { "amqp://127.0.0.1:5672" },
-        tasks = [rust_say_hello,],
+        tasks = [say_hello,],
         task_routes = ["rust_*" => "rust-queue",],
         prefetch_count = 2,
         heartbeat = Some(10),
